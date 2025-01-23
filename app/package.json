@@ -5,18 +5,12 @@
     "author": "author <author@example.com>",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js",
-        "lint": "eslint ."
+        "start": "node server.js"
     },
     "dependencies": {
         "express": "^4.17.3"
     },
     "devDependencies": {
-        "@eslint/js": "^9.18.0",
-        "eslint": "^9.18.0",
-        "eslint-config-prettier": "^8.5.0",
-        "eslint-plugin-prettier": "^4.2.1",
-        "eslint-plugin-react": "^7.37.4",
         "globals": "^15.14.0"
     }
 }
