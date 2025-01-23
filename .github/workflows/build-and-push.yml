@@ -1,12 +1,9 @@
 name: Build and push docker to registry
 
 on:
-  workflow_run:
-    workflows: ["Run tests"]
+  pull_request:
     branches:
       - main
-    types:
-      - completed
 
 jobs:
   build-and-push-docker:
