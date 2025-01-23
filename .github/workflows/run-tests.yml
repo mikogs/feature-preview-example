@@ -1,0 +1,23 @@
+name: Run tests
+
+on:
+  pull_request:
+    branches:
+      - '**'
+  push:
+    paths-ignore:
+      - '*.md'
+    branches:
+      - main
+
+jobs:
+  run-lint-and-tests:
+    name: Run lint and tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run-script lint
