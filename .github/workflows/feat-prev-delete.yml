@@ -1,5 +1,5 @@
 ---
-name: Feature Preview - Create
+name: Feature Preview - Delete
 on:
   workflow_dispatch:
     inputs:
@@ -11,8 +11,8 @@ on:
 # TODO: input validation/sanitization
 
 jobs:
-  create-feature-preview:
-    name: Create feature preview
+  delete-feature-preview:
+    name: Delete feature preview
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -30,10 +30,10 @@ jobs:
           path: feature-preview-example-argocd
           ref: main
 
-      - name: Delete featurenet
+      - name: Delete feature preview
         shell: bash
         run: |
-          cd feature-preview-example-argocd
+          cd feature-preview-example-argocd/feature-previews
           ./delete.sh '${{ inputs.name }}'
 
       #- name: Configure signing key
@@ -48,7 +48,7 @@ jobs:
         with:
           author_name: Auto-commit author
           author_email: auto-commit@example.com
-          message: "Upsert feature preview ${{ inputs.name }} with image ${{ steps.get-ref-properties.outputs.sha }}"
+          message: "Delete feature preview ${{ inputs.name }}"
           add: "*.yaml"
           #commit: -S
           cwd: feature-preview-example-argocd

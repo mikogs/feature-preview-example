@@ -30,10 +30,10 @@ jobs:
           path: feature-preview-example-argocd
           ref: main
 
-      - name: Create new featurenet
+      - name: Create new feature preview
         shell: bash
         run: |
-          cd feature-preview-example-argocd
+          cd feature-preview-example-argocd/feature-previews
           ./create.sh '${{ inputs.name }}' '${{ vars.DOCKERHUB_USERNAME }}/feature-preview-app:${{ steps.get-ref-properties.outputs.sha }}'
 
       #- name: Configure signing key
