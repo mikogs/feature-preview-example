@@ -1,0 +1,54 @@
+---
+name: Feature Preview - Create
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Name of the feature preview (eg. branch)
+        type: string
+        required: true
+
+# TODO: input validation/sanitization
+
+jobs:
+  create-feature-preview:
+    name: Create feature preview
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Call action get-ref-properties
+        id: get-ref-properties
+        uses: Cardinal-Cryptography/github-actions/get-ref-properties@v7
+
+      - name: Checkout gitops repo
+        uses: actions/checkout@v2
+        with:
+          repository: mikogs/feature-preview-example-argocd
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: feature-preview-example-argocd
+          ref: main
+
+      - name: Delete featurenet
+        shell: bash
+        run: |
+          cd feature-preview-example-argocd
+          ./delete.sh '${{ inputs.name }}'
+
+      #- name: Configure signing key
+      #  run: |
+      #    echo ${{ secrets.AUTOCOMMIT_GPG_KEY_B64 }} | base64 -d > key.gpg
+      #    gpg --import key.gpg
+      #    rm key.gpg
+      #    git config --global user.signingkey $(echo ${{ secrets.AUTOCOMMIT_GPG_KEY_FINGERPRINT }} | tail -c 17)
+
+      - name: GIT | Commit changes to gitops repository.
+        uses: EndBug/add-and-commit@v9.1.4
+        with:
+          author_name: Auto-commit author
+          author_email: auto-commit@example.com
+          message: "Upsert feature preview ${{ inputs.name }} with image ${{ steps.get-ref-properties.outputs.sha }}"
+          add: "*.yaml"
+          #commit: -S
+          cwd: feature-preview-example-argocd
