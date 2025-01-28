@@ -1,0 +1,16 @@
+{
+    "name": "app_frontend",
+    "version": "0.1.0",
+    "description": "Simple frontend",
+    "author": "author <author@example.com>",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "express": "^4.17.3"
+    },
+    "devDependencies": {
+        "globals": "^15.14.0"
+    }
+}
